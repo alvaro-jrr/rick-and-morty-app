@@ -1,29 +1,35 @@
-import type { Character, All } from "@types";
+import type { Character, All, Information } from "@types";
 import { BASE_URL, SCHEMA } from "./config";
+
+/** Default value returned */
+const defaultValue: All<Character> = { info: {} as Information, results: [] };
 
 /**
  * Get all characters
  *
  * @returns {Promise<All<Character>>} Promise of All characters
  */
-export const getCharacters = async (): Promise<All<Character>> => {
-    const response: All<Character> = await fetch(
-        `${BASE_URL}/${SCHEMA.Character}`
-    )
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(
-                    `Unexpected status code ${response.status}: ${response.statusText}`
-                );
-            }
+export const getCharacters = async (page = 1): Promise<All<Character>> => {
+	/** Filter of characters */
+	const searchParams = new URLSearchParams({ page: String(page) }).toString();
 
-            return response.json();
-        })
-        .catch((reason: Error) => {
-            console.error(reason.message);
+	const response: All<Character> = await fetch(
+		`${BASE_URL}/${SCHEMA.Character}/?${searchParams}`
+	)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(
+					`Unexpected status code ${response.status}: ${response.statusText}`
+				);
+			}
 
-            return {};
-        });
+			return response.json();
+		})
+		.catch((reason: Error) => {
+			console.error(reason.message);
 
-    return response;
+			return defaultValue;
+		});
+
+	return response;
 };
