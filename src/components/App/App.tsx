@@ -1,22 +1,43 @@
-import type { All, Character } from "@types";
-import { useEffect, useState } from "react";
-import { getCharacters } from "@api/getCharacters";
+import type { Section } from "@types";
+import { Outlet } from "react-router-dom";
+import NavBar from "@components/NavBar";
+import * as Styled from "./App.styles";
+
+/** App sections */
+const sections: Section[] = [
+	{
+		link: "/characters",
+		title: "Characters",
+	},
+	{
+		link: "/episodes",
+		title: "Episodes",
+	},
+	{
+		link: "/locations",
+		title: "Locations",
+	},
+];
 
 export default function App() {
-    /** Store all characters entries */
-    const [characters, setCharacters] = useState<All<Character>>(
-        {} as All<Character>
-    );
+	return (
+		<Styled.Wrapper>
+			<Styled.Header>
+				<Styled.HeadingWrapper>
+					<Styled.Title>Rick and Morty App</Styled.Title>
 
-    useEffect(() => {
-        getCharacters().then((characters) => setCharacters(characters));
-    }, []);
+					<Styled.Subtitle>
+						Find each description of every character, episode and
+						location of your favorite animated series.
+					</Styled.Subtitle>
+				</Styled.HeadingWrapper>
 
-    console.log(characters);
+				<NavBar sections={sections} />
+			</Styled.Header>
 
-    return (
-        <div>
-            <pre>{JSON.stringify(characters.info)}</pre>
-        </div>
-    );
+			<Styled.Content>
+				<Outlet />
+			</Styled.Content>
+		</Styled.Wrapper>
+	);
 }
