@@ -8,9 +8,12 @@ import { globalStyles } from "./index.styles";
 /** Router */
 const router = createBrowserRouter([
 	{
-		path: "/",
 		element: <App />,
 		children: [
+			{
+				path: "/",
+				element: <p>Home</p>,
+			},
 			{
 				path: "/characters",
 				loader: charactersLoader,

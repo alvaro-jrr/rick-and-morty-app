@@ -5,6 +5,7 @@ export const Wrapper = styled("div", {
 	display: "flex",
 	flexFlow: "column nowrap",
 	rowGap: "2rem",
+	minHeight: "100vh",
 });
 
 /** Header wrapper */
@@ -39,4 +40,5 @@ export const Content = styled("div", {
 	display: "grid",
 	gridTemplateColumns: "1fr min(60ch, calc(100% - 3rem)) 1fr",
 	"& > *": { gridColumn: 2 },
+	marginBottom: "2rem",
 });

@@ -8,10 +8,10 @@ interface Props {
 
 export default function Section({ title, children }: Props) {
 	return (
-		<Styled.Wrapper>
+		<section>
 			<Styled.Title>{title}</Styled.Title>
 
-			<div>{children}</div>
-		</Styled.Wrapper>
+			<Styled.Content>{children}</Styled.Content>
+		</section>
 	);
 }
